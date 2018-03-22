@@ -7,7 +7,7 @@
 ``` gradle
 buildscript {
     dependencies {
-        classpath "com.github.smac89:safeenum-aspect-task:0.1.0"
+        classpath "com.github.smac89:safeenum-aspect-task:master-SNAPSHOT"
     }
 
     repositories {
