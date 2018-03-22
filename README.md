@@ -6,13 +6,13 @@
 **`build.gradle`**
 ``` gradle
 buildscript {
-	dependencies {
-		classpath "com.github.smac89:safeenum-aspect-task:0.1.0"
-	}
+    dependencies {
+        classpath "com.github.smac89:safeenum-aspect-task:0.1.0"
+    }
 
-	repositories {
-		maven { url 'https://jitpack.io' }
-	}
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 repositories {
