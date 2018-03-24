@@ -12,10 +12,47 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    weave {
+        transitive = false
+    }
+}
+
+def aspectjVersion = '1.8.13'
+
 dependencies {
     implementation("com.google.auto.service:auto-service:1.0-rc4") {
         exclude group: 'junit'
         exclude group: 'org.hamcrest'
     }
-    testCompileOnly group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    weave "org.aspectj:aspectjweaver:$aspectjVersion"
+    testCompile "org.aspectj:aspectjweaver:$aspectjVersion"
+    testCompile "org.aspectj:aspectjrt:$aspectjVersion"
+}
+
+tasks.withType(JavaCompile) {
+    it.options.forkOptions.jvmArgs += "-javaagent:${configurations.weave.asPath}"
+}
+
+//build {
+//    jvmArgs += "-javaagent:${configurations.weave.asPath}"
+//}
+
+test {
+    jvmArgs += "-javaagent:${configurations.weave.asPath}"
+//    classpath += (sourceSets.test.compileClasspath + sourceSets.test.runtimeClasspath).asPath
+//    jvmArgs += "-classpath:${(sourceSets.test.compileClasspath + sourceSets.test.runtimeClasspath).asPath}"
+
+    systemProperty 'aj.class.path', (sourceSets.test.compileClasspath + sourceSets.test.runtimeClasspath).asPath
+    systemProperty 'aj.aspect.path', configurations.weave.asPath
+    systemProperty 'aj.weaving.verbose', 'true'
+    systemProperty 'org.aspectj.weaver.showWeaveInfo', 'true'
+    beforeTest {
+        logger.lifecycle "Running test: ${it}"
+    }
+    doFirst {
+//        println "jvmArgs=${it.jvmArgs}"
+//        println "classpath=${it.classpath.asPath}"
+    }
 }

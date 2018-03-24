@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--https://www.eclipse.org/aspectj/doc/released/devguide/ltw-configuration.html-->
+<aspectj>
+    <aspects>
+        <include within="com.github.smac89..*" />
+        <aspect name="com.github.smac89.safeenum.EnumSafeTInjector" />
+    </aspects>
+    <weaver options="">
+        <include within="com.github.smac89..*"/>
+    </weaver>
+</aspectj>

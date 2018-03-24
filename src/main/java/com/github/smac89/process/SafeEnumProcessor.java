@@ -12,6 +12,8 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
@@ -70,6 +72,12 @@ public class SafeEnumProcessor extends AbstractProcessor {
             }
 
             String packageName = elementUtil.getPackageOf(element).getQualifiedName().toString();
+
+            if (element.getModifiers().contains(Modifier.PRIVATE)) {
+                info(element, "Enum is hidden in package {0}", packageName);
+                continue;
+            }
+
             List<TypeElement> elements = enumsByPackage.get(packageName);
             if (elements == null) {
                 elements = new ArrayList<TypeElement>();
@@ -142,6 +150,10 @@ public class SafeEnumProcessor extends AbstractProcessor {
 
     private void error(Element element, String message, Object...args) {
         messager.printMessage(Diagnostic.Kind.ERROR, MessageFormat.format(message, args), element);
+    }
+
+    private void info(Element element, String message, Object...args) {
+        messager.printMessage(Diagnostic.Kind.WARNING, MessageFormat.format(message, args), element);
     }
 
     // https://blog.espenberntsen.net/2010/03/20/aspectj-cheat-sheet/
