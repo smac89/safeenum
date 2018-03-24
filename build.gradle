@@ -1,5 +1,5 @@
 group 'com.github.smac89'
-version '0.1.0'
+version '0.2.0'
 
 apply plugin: 'java-library'
 
@@ -29,10 +29,6 @@ dependencies {
     testCompile "org.aspectj:aspectjrt:$aspectjVersion"
     weave "org.aspectj:aspectjweaver:$aspectjVersion"
 }
-
-//tasks.withType(JavaCompile) {
-//    it.options.forkOptions.jvmArgs += "-javaagent:${configurations.weave.asPath}"
-//}
 
 test {
     jvmArgs += "-javaagent:${configurations.weave.asPath}"
