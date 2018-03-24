@@ -5,7 +5,7 @@ import org.junit.Test;
 public class SafeEnumNotAnnotatedTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void enumWithoutAnnotation_isIgnored() {
+    public void callToValueOf_whenEnumIsWithoutAnnotation_isIgnored() {
         Test1Enum test1Enum = Test1Enum.valueOf("Blah");
     }
 
