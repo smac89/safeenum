@@ -1,7 +1,7 @@
-package com.github.smac89.aspect;
+package com.github.smac89.internal.aspect;
 
-import com.github.smac89.safeenum.internal.Constants;
-import com.github.smac89.safeenum.internal.EnumMembers;
+import com.github.smac89.internal.Constants;
+import com.github.smac89.internal.EnumMembers;
 import com.github.smac89.safeenum.SafeName;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

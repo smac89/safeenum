@@ -1,8 +1,8 @@
-package com.github.smac89.process;
+package com.github.smac89.internal.process;
 
 import com.github.smac89.safeenum.SafeEnum;
 import com.github.smac89.safeenum.SafeName;
-import com.github.smac89.safeenum.internal.Constants;
+import com.github.smac89.internal.Constants;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.AbstractProcessor;

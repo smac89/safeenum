@@ -1,4 +1,4 @@
-package com.github.smac89.safeenum.internal;
+package com.github.smac89.internal;
 
 import java.util.Set;
 
