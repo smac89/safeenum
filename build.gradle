@@ -21,12 +21,12 @@ configurations {
 def aspectjVersion = '1.8.13'
 
 dependencies {
+    implementation "org.aspectj:aspectjrt:$aspectjVersion"
     implementation("com.google.auto.service:auto-service:1.0-rc4") {
         exclude group: 'junit'
         exclude group: 'org.hamcrest'
     }
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile "org.aspectj:aspectjrt:$aspectjVersion"
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
     weave "org.aspectj:aspectjweaver:$aspectjVersion"
 }
 

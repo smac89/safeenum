@@ -11,8 +11,8 @@ public class SafeEnumAnnotatedWithCustomSafeNameTest {
         assertEquals("Expected the enum to choose the last one", test1Enum, Test1Enum.LAST);
     }
 
-    @SafeEnum(safeName = "LAST")
+    @SafeEnum
     public enum Test1Enum {
-        A, B, C, LAST
+        A, B, C, @SafeName LAST
     }
 }

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class SafeEnumTest {
     @Test
     public void callToValueOf_isReplacedWithSafeCall() {
-        Test1Enum test1Enum = Test1Enum.valueOf("Blah");
+        Test1Enum test1Enum = Test1Enum.valueOf("bar");
         assertEquals("Expected to equal UNKNOWN", test1Enum, Test1Enum.UNKNOWN);
     }
 

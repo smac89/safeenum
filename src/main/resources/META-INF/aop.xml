@@ -3,9 +3,6 @@
 <aspectj>
     <aspects>
         <include within="com.github.smac89..*" />
-        <aspect name="com.github.smac89.safeenum.EnumSafeTTInjector" />
+        <aspect name="com.github.smac89.aspect.SafeEnumInjector" />
     </aspects>
-    <weaver>
-        <include within="com.github.smac89..*"/>
-    </weaver>
 </aspectj>

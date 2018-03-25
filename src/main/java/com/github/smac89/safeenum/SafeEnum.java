@@ -4,12 +4,11 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.logging.Logger;
 
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
 public @interface SafeEnum {
-    String safeName() default "UNKNOWN";
+//    String safeName() default "UNKNOWN";
 
     /**
      * Log the use of the safer alternative
