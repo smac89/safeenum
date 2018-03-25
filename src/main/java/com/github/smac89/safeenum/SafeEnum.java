@@ -8,10 +8,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
 public @interface SafeEnum {
-//    String safeName() default "UNKNOWN";
-
     /**
+     * THIS FEATURE IS NOT YET AVAILABLE
      * Log the use of the safer alternative
+     *
      * @return true if we should also log the usage
      */
     boolean log() default false;

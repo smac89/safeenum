@@ -24,10 +24,12 @@ public final class SafeEnumInjector {
     private final Map<String, EnumMembers> enumFields = new HashMap<String, EnumMembers>();
 
     @Pointcut("execution(* (@(com.github.smac89.safeenum.SafeEnum) *).valueOf(String)) && args(name)")
-    public void callToValueOf(String name) {}
+    public void callToValueOf(String name) {
+    }
 
     @Pointcut("staticinitialization (@(com.github.smac89.safeenum.SafeEnum) *)")
-    public void enumDeclared() {}
+    public void enumDeclared() {
+    }
 
     @Around("callToValueOf(value)")
     public Object atMatchedElement(String value, ProceedingJoinPoint jp) throws Throwable {
@@ -66,7 +68,7 @@ public final class SafeEnumInjector {
         if (enumsIndexLast > 1) {
             List<Field> fieldList = Arrays.asList(Arrays.copyOf(fields, enumsIndexLast));
             Set<String> constantNames = new HashSet<String>();
-            for (Field field: fieldList) {
+            for (Field field : fieldList) {
                 constantNames.add(field.getName());
             }
             enumFields.put(name, new EnumMembers(safeName, Collections.unmodifiableSet(constantNames)));

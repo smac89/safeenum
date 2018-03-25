@@ -1,8 +1,8 @@
 package com.github.smac89.internal.process;
 
+import com.github.smac89.internal.Constants;
 import com.github.smac89.safeenum.SafeEnum;
 import com.github.smac89.safeenum.SafeName;
-import com.github.smac89.internal.Constants;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -59,7 +59,7 @@ public class SafeEnumProcessor extends AbstractProcessor {
     }
 
     private static boolean hasSafeName(Element enumClass) {
-        for (Element element: enumClass.getEnclosedElements()) {
+        for (Element element : enumClass.getEnclosedElements()) {
             if (element.getKind() == ElementKind.ENUM_CONSTANT) {
                 SafeName defaultName = element.getAnnotation(SafeName.class);
                 if (defaultName != null) {
@@ -74,7 +74,7 @@ public class SafeEnumProcessor extends AbstractProcessor {
         return false;
     }
 
-    private void error(Element element, String message, Object...args) {
+    private void error(Element element, String message, Object... args) {
         messager.printMessage(Diagnostic.Kind.ERROR, MessageFormat.format(message, args), element);
     }
 }
