@@ -28,4 +28,5 @@ dependencies {
 
 test {
     jvmArgs += "-javaagent:${configurations.weave.asPath}"
+    maxParallelForks Runtime.runtime.availableProcessors().intdiv(2).toInteger() ?: 1
 }
