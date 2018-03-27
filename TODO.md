@@ -1,0 +1,2 @@
+- Create an automatic way to upload and turn this into maven
+ - https://gist.github.com/fernandezpablo85/03cf8b0cd2e7d8527063

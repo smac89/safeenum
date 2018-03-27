@@ -1,21 +1,30 @@
+plugins {
+    id 'org.ajoberstar.git-publish' version '0.3.3'
+}
+
 group 'com.github.smac89'
 version '0.2.0'
 
 apply plugin: 'java-library'
 
-compileJava {
-    sourceCompatibility=JavaVersion.VERSION_1_6
-    targetCompatibility=JavaVersion.VERSION_1_6
-}
-
 repositories {
     mavenCentral()
+    jcenter()
+    maven {
+        url 'localhost'
+        name 'projectRepo'
+    }
 }
 
 configurations {
     weave {
         transitive = false
     }
+}
+
+compileJava {
+    sourceCompatibility=JavaVersion.VERSION_1_6
+    targetCompatibility=JavaVersion.VERSION_1_6
 }
 
 def aspectjVersion = '1.8.13'
@@ -29,4 +38,51 @@ dependencies {
 test {
     jvmArgs += "-javaagent:${configurations.weave.asPath}"
     maxParallelForks Runtime.runtime.availableProcessors().intdiv(2).toInteger() ?: 1
+}
+
+task createMvnBranch(description: 'Creates the mvn branch for this project', group: 'mvn') {
+    dependsOn jar
+    onlyIf { "git show-ref --quiet refs/heads/mvn".execute().waitFor() != 0 }
+
+    doLast {
+        "git checkout -b mvn".execute().waitFor()
+
+        projectDir.listFiles({it.absolutePath ==~ /(?i).*?gradle.*/} as FileFilter)
+                .each { project.delete it }
+
+        ("mvn install:install-file -DgroupId=${project.group} " +
+                "-DartifactId=${project.name}, -Dversion=${project.version} -Dfile=${jar.archivePath?.absolutePath} " +
+                "-Dpackaging=jar -DgeneratePom=true -DlocalRepositoryPath=.  -DcreateChecksum=true").execute().waitFor()
+
+        "git add -A . && git commit -m 'Created repo at version: v${project.version}'".execute().waitFor()
+    }
+}
+
+task updateMvnBranch(description: "Update the maven branch with the latest POM", group: 'mvn') {
+    dependsOn createMvnBranch, jar
+
+    doLast {
+        project.projectDir.listFiles({
+            it.absolutePath ==~ /(?i).*?gradle.*/
+        } as FileFilter).each { println it.absolutePath }
+//        println project.projectDir.listFiles(new FilenameFilter() {
+//            @Override
+//            boolean accept(File dir, String name) {
+//                return false
+//            }
+//        })
+//        "git checkout mvn".execute().waitFor()
+    }
+}
+
+task publishMvnBranch(type: Upload, description: 'Uploads the mvn branch for this project', group: 'mvn') {
+    dependsOn updateMvnBranch
+    
+    dependsOn gitPublish {
+        repoUri = 'git@github.com:smac89/safeenum.git'
+
+        branch = 'mvn'
+
+        commitMessage = 'Publishing the maven branch to github'
+    }
 }
