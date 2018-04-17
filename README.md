@@ -1,6 +1,6 @@
 # SafeEnum
 
-## Usage
+## Installation
 
 
 **`build.gradle`**
@@ -17,3 +17,6 @@ dependencies {
     compileOnly 'com.github.smac89:safeenum:v0.3.0'
 }
 ```
+
+## Usage
+#### See the [tests](https://github.com/smac89/safeenum/tree/master/src/test/java/com/github/smac89)
