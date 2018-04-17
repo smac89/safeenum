@@ -27,12 +27,12 @@ public final class SafeEnumInjector {
     public void callToValueOf(String name) {
     }
 
-    @Pointcut("staticinitialization (@(com.github.smac89.safeenum.SafeEnum) *)")
+    @Pointcut("@within (com.github.smac89.safeenum.SafeEnum)")
     public void enumDeclared() {
     }
 
-    @Around("callToValueOf(value)")
-    public Object atMatchedElement(String value, ProceedingJoinPoint jp) throws Throwable {
+    @Around(value = "callToValueOf(value)", argNames = "jp,value")
+    public Object atMatchedElement(ProceedingJoinPoint jp, String value) throws Throwable {
         String enumName = jp.getSignature().getDeclaringType().getCanonicalName();
         EnumMembers declaredConstants = enumFields.get(enumName);
 

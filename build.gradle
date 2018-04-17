@@ -1,5 +1,9 @@
-group 'com.github.smac89'
-version '0.2.0'
+plugins {
+    id "com.github.smac89.aspectj" version "0.1.2"
+}
+
+group = "$artifact_group"
+version = "$artifact_version.$build_number"
 
 apply plugin: 'java-library'
 
@@ -18,15 +22,13 @@ configurations {
     }
 }
 
-def aspectjVersion = '1.8.13'
-
 dependencies {
-    implementation "org.aspectj:aspectjrt:$aspectjVersion"
     testImplementation group: 'junit', name: 'junit', version: '4.12'
-    weave "org.aspectj:aspectjweaver:$aspectjVersion"
 }
 
-test {
-    jvmArgs += "-javaagent:${configurations.weave.asPath}"
-    maxParallelForks Runtime.runtime.availableProcessors().intdiv(2).toInteger() ?: 1
+model {
+    aspectj {
+        testWeave 'load'
+        showWeaveInfo false
+    }
 }
