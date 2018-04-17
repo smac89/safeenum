@@ -13,8 +13,8 @@ public class SafeEnumTest {
 
     @Test
     public void callToValueOf_isNotReplacedWithSafeCall() {
-        Test2Enum test2Enum = Test2Enum.valueOf("UNKNOWN");
-        assertEquals("Expected to equal UNKNOWN", test2Enum, Test2Enum.UNKNOWN);
+        Test2Enum test2Enum = Test2Enum.valueOf("C");
+        assertEquals("Expected to equal C", test2Enum, Test2Enum.C);
     }
 
     @SafeEnum
